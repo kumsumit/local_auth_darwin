@@ -1,17 +1,15 @@
 // Copyright 2013 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-#import "FLTLocalAuthPlugin.h"
-#import "FLTLocalAuthPlugin_Test.h"
+#import "FLALocalAuthPlugin.h"
+#import "FLALocalAuthPlugin_Test.h"
 
 #import <LocalAuthentication/LocalAuthentication.h>
 
-typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError *_Nullable);
+typedef void (^FLADAuthCompletion)(FLADAuthResultDetails *_Nullable, FlutterError *_Nullable);
 
-/**
- * A default context factory that wraps standard LAContext allocation.
- */
-@interface FLADefaultAuthContextFactory : NSObject <FLAAuthContextFactory>
+/// A default context factory that wraps standard LAContext allocation.
+@interface FLADefaultAuthContextFactory : NSObject <FLADAuthContextFactory>
 @end
 
 @implementation FLADefaultAuthContextFactory
@@ -22,22 +20,20 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
 
 #pragma mark -
 
-/**
- * A data container for sticky auth state.
- */
+/// A data container for sticky auth state.
 @interface FLAStickyAuthState : NSObject
-@property(nonatomic, strong, nonnull) FLAAuthOptions *options;
-@property(nonatomic, strong, nonnull) FLAAuthStrings *strings;
-@property(nonatomic, copy, nonnull) FLAAuthCompletion resultHandler;
-- (instancetype)initWithOptions:(nonnull FLAAuthOptions *)options
-                        strings:(nonnull FLAAuthStrings *)strings
-                  resultHandler:(nonnull FLAAuthCompletion)resultHandler;
+@property(nonatomic, strong, nonnull) FLADAuthOptions *options;
+@property(nonatomic, strong, nonnull) FLADAuthStrings *strings;
+@property(nonatomic, copy, nonnull) FLADAuthCompletion resultHandler;
+- (instancetype)initWithOptions:(nonnull FLADAuthOptions *)options
+                        strings:(nonnull FLADAuthStrings *)strings
+                  resultHandler:(nonnull FLADAuthCompletion)resultHandler;
 @end
 
 @implementation FLAStickyAuthState
-- (instancetype)initWithOptions:(nonnull FLAAuthOptions *)options
-                        strings:(nonnull FLAAuthStrings *)strings
-                  resultHandler:(nonnull FLAAuthCompletion)resultHandler {
+- (instancetype)initWithOptions:(nonnull FLADAuthOptions *)options
+                        strings:(nonnull FLADAuthStrings *)strings
+                  resultHandler:(nonnull FLADAuthCompletion)resultHandler {
   self = [super init];
   if (self) {
     _options = options;
@@ -50,24 +46,24 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
 
 #pragma mark -
 
-@interface FLTLocalAuthPlugin ()
+@interface FLALocalAuthPlugin ()
 @property(nonatomic, strong, nullable) FLAStickyAuthState *lastCallState;
-@property(nonatomic, strong) NSObject<FLAAuthContextFactory> *authContextFactory;
+@property(nonatomic, strong) NSObject<FLADAuthContextFactory> *authContextFactory;
 @end
 
-@implementation FLTLocalAuthPlugin
+@implementation FLALocalAuthPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  FLTLocalAuthPlugin *instance = [[FLTLocalAuthPlugin alloc] init];
+  FLALocalAuthPlugin *instance = [[FLALocalAuthPlugin alloc] init];
   [registrar addApplicationDelegate:instance];
-  FLALocalAuthApiSetup([registrar messenger], instance);
+  SetUpFLADLocalAuthApi([registrar messenger], instance);
 }
 
 - (instancetype)init {
   return [self initWithContextFactory:[[FLADefaultAuthContextFactory alloc] init]];
 }
 
-- (instancetype)initWithContextFactory:(NSObject<FLAAuthContextFactory> *)factory {
+- (instancetype)initWithContextFactory:(NSObject<FLADAuthContextFactory> *)factory {
   self = [super init];
   if (self) {
     _authContextFactory = factory;
@@ -75,20 +71,19 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
   return self;
 }
 
-#pragma mark FLALocalAuthApi
+#pragma mark FLADLocalAuthApi
 
-- (void)authenticateWithOptions:(nonnull FLAAuthOptions *)options
-                        strings:(nonnull FLAAuthStrings *)strings
-                     completion:(nonnull void (^)(FLAAuthResultDetails *_Nullable,
+- (void)authenticateWithOptions:(nonnull FLADAuthOptions *)options
+                        strings:(nonnull FLADAuthStrings *)strings
+                     completion:(nonnull void (^)(FLADAuthResultDetails *_Nullable,
                                                   FlutterError *_Nullable))completion {
   LAContext *context = [self.authContextFactory createAuthContext];
   NSError *authError = nil;
   self.lastCallState = nil;
   context.localizedFallbackTitle = strings.localizedFallbackTitle;
 
-  LAPolicy policy = options.biometricOnly.boolValue
-                        ? LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                        : LAPolicyDeviceOwnerAuthentication;
+  LAPolicy policy = options.biometricOnly ? LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                                          : LAPolicyDeviceOwnerAuthentication;
   if ([context canEvaluatePolicy:policy error:&authError]) {
     [context evaluatePolicy:policy
             localizedReason:strings.reason
@@ -127,18 +122,19 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
   return @NO;
 }
 
-- (nullable NSArray<FLAAuthBiometricWrapper *> *)getEnrolledBiometricsWithError:
+- (nullable NSArray<FLADAuthBiometricWrapper *> *)getEnrolledBiometricsWithError:
     (FlutterError *_Nullable __autoreleasing *_Nonnull)error {
   LAContext *context = [self.authContextFactory createAuthContext];
   NSError *authError = nil;
-  NSMutableArray<FLAAuthBiometricWrapper *> *biometrics = [[NSMutableArray alloc] init];
+  NSMutableArray<FLADAuthBiometricWrapper *> *biometrics = [[NSMutableArray alloc] init];
   if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
                            error:&authError]) {
     if (authError == nil) {
       if (context.biometryType == LABiometryTypeFaceID) {
-        [biometrics addObject:[FLAAuthBiometricWrapper makeWithValue:FLAAuthBiometricFace]];
+        [biometrics addObject:[FLADAuthBiometricWrapper makeWithValue:FLADAuthBiometricFace]];
       } else if (context.biometryType == LABiometryTypeTouchID) {
-        [biometrics addObject:[FLAAuthBiometricWrapper makeWithValue:FLAAuthBiometricFingerprint]];
+        [biometrics
+            addObject:[FLADAuthBiometricWrapper makeWithValue:FLADAuthBiometricFingerprint]];
       }
     }
   }
@@ -147,9 +143,8 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
 
 - (nullable NSNumber *)isDeviceSupportedWithError:
     (FlutterError *_Nullable __autoreleasing *_Nonnull)error {
-  // TODO(stuartmorgan): Fix this to check for biometrics or passcode; see
-  // https://github.com/flutter/flutter/issues/116179
-  return @YES;
+  LAContext *context = [self.authContextFactory createAuthContext];
+  return @([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:NULL]);
 }
 
 #pragma mark Private Methods
@@ -157,7 +152,7 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
 - (void)showAlertWithMessage:(NSString *)message
           dismissButtonTitle:(NSString *)dismissButtonTitle
      openSettingsButtonTitle:(NSString *)openSettingsButtonTitle
-                  completion:(FLAAuthCompletion)completion {
+                  completion:(FLADAuthCompletion)completion {
   UIAlertController *alert =
       [UIAlertController alertControllerWithTitle:@""
                                           message:message
@@ -191,9 +186,9 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
 
 - (void)handleAuthReplyWithSuccess:(BOOL)success
                              error:(NSError *)error
-                           options:(FLAAuthOptions *)options
-                           strings:(FLAAuthStrings *)strings
-                        completion:(nonnull FLAAuthCompletion)completion {
+                           options:(FLADAuthOptions *)options
+                           strings:(FLADAuthStrings *)strings
+                        completion:(nonnull FLADAuthCompletion)completion {
   NSAssert([NSThread isMainThread], @"Response handling must be done on the main thread.");
   if (success) {
     [self handleSucceeded:YES withCompletion:completion];
@@ -208,7 +203,7 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
         [self handleError:error withOptions:options strings:strings completion:completion];
         return;
       case LAErrorSystemCancel:
-        if ([options.sticky boolValue]) {
+        if (options.sticky) {
           _lastCallState = [[FLAStickyAuthState alloc] initWithOptions:options
                                                                strings:strings
                                                          resultHandler:completion];
@@ -221,31 +216,31 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
   }
 }
 
-- (void)handleSucceeded:(BOOL)succeeded withCompletion:(nonnull FLAAuthCompletion)completion {
-  completion(
-      [FLAAuthResultDetails makeWithResult:(succeeded ? FLAAuthResultSuccess : FLAAuthResultFailure)
-                              errorMessage:nil
-                              errorDetails:nil],
-      nil);
+- (void)handleSucceeded:(BOOL)succeeded withCompletion:(nonnull FLADAuthCompletion)completion {
+  completion([FLADAuthResultDetails
+                 makeWithResult:(succeeded ? FLADAuthResultSuccess : FLADAuthResultFailure)
+                   errorMessage:nil
+                   errorDetails:nil],
+             nil);
 }
 
 - (void)handleError:(NSError *)authError
-        withOptions:(FLAAuthOptions *)options
-            strings:(FLAAuthStrings *)strings
-         completion:(nonnull FLAAuthCompletion)completion {
-  FLAAuthResult result = FLAAuthResultErrorNotAvailable;
+        withOptions:(FLADAuthOptions *)options
+            strings:(FLADAuthStrings *)strings
+         completion:(nonnull FLADAuthCompletion)completion {
+  FLADAuthResult result = FLADAuthResultErrorNotAvailable;
   switch (authError.code) {
     case LAErrorPasscodeNotSet:
     case LAErrorBiometryNotEnrolled:
-      if (options.useErrorDialogs.boolValue) {
+      if (options.useErrorDialogs) {
         [self showAlertWithMessage:strings.goToSettingsDescription
                  dismissButtonTitle:strings.cancelButton
             openSettingsButtonTitle:strings.goToSettingsButton
                          completion:completion];
         return;
       }
-      result = authError.code == LAErrorPasscodeNotSet ? FLAAuthResultErrorPasscodeNotSet
-                                                       : FLAAuthResultErrorNotEnrolled;
+      result = authError.code == LAErrorPasscodeNotSet ? FLADAuthResultErrorPasscodeNotSet
+                                                       : FLADAuthResultErrorNotEnrolled;
       break;
     case LAErrorBiometryLockout:
       [self showAlertWithMessage:strings.lockOut
@@ -254,9 +249,9 @@ typedef void (^FLAAuthCompletion)(FLAAuthResultDetails *_Nullable, FlutterError 
                        completion:completion];
       return;
   }
-  completion([FLAAuthResultDetails makeWithResult:result
-                                     errorMessage:authError.localizedDescription
-                                     errorDetails:authError.domain],
+  completion([FLADAuthResultDetails makeWithResult:result
+                                      errorMessage:authError.localizedDescription
+                                      errorDetails:authError.domain],
              nil);
 }
 
