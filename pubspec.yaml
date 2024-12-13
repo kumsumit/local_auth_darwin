@@ -8,7 +8,7 @@ publish_to: none
 
 environment:
   sdk: ">=3.3.1 <4.0.0"
-  flutter: ">=3.19.3"
+  flutter: ">=3.24.0"
 lutter:
   plugin:
     implements: local_auth
