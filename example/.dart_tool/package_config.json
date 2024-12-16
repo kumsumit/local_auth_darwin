@@ -101,13 +101,13 @@
       "name": "local_auth_darwin",
       "rootUri": "../../",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "local_auth_platform_interface",
-      "rootUri": "file:///home/sumit/.pub-cache/git/local_auth_platform_interface-6ba0d621fe1ad0ae312f0e41261872af584ab65f/",
+      "rootUri": "file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "matcher",
@@ -221,10 +221,10 @@
       "name": "local_auth_darwin_example",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-12-13T06:36:48.020728Z",
+  "generated": "2024-12-16T06:27:05.339122Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///home/sumit/softwares/flutter",

@@ -309,7 +309,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6ba0d621fe1ad0ae312f0e41261872af584ab65f"
+      resolved-ref: "13607da3bb93e0f58e82287c4c088a5af7d310f9"
       url: "https://github.com/kumsumit/local_auth_platform_interface.git"
     source: git
     version: "1.0.10"
@@ -586,4 +586,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.5.0 <4.0.0"
-  flutter: ">=3.24.0"
+  flutter: ">=3.22.0"
