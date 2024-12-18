@@ -1,7 +1,7 @@
 local_auth_platform_interface
-3.3
-file:///home/sumit/.pub-cache/git/local_auth_platform_interface-6ba0d621fe1ad0ae312f0e41261872af584ab65f/
-file:///home/sumit/.pub-cache/git/local_auth_platform_interface-6ba0d621fe1ad0ae312f0e41261872af584ab65f/lib/
+3.4
+file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/
+file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/lib/
 plugin_platform_interface
 3.3
 file:///home/sumit/.pub-cache/git/plugin_platform_interface-5b87c0b21d7dfa69ff1b00993bc6f895ab5b0de5/
@@ -115,11 +115,11 @@ webdriver
 file:///home/sumit/.pub-cache/hosted/pub.dev/webdriver-3.0.4/
 file:///home/sumit/.pub-cache/hosted/pub.dev/webdriver-3.0.4/lib/
 local_auth_darwin
-3.3
+3.4
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/lib/
 local_auth_darwin_example
-3.3
+3.4
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/example/
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/example/lib/
 sky_engine

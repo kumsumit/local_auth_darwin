@@ -452,10 +452,10 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-12-16T06:27:04.502833Z",
+  "generated": "2024-12-18T18:03:39.837389Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///home/sumit/softwares/flutter",
-  "flutterVersion": "3.27.0",
+  "flutterVersion": "3.27.1",
   "pubCache": "file:///home/sumit/.pub-cache"
 }

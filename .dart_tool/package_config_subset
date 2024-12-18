@@ -1,7 +1,7 @@
 local_auth_platform_interface
-3.3
-file:///home/sumit/.pub-cache/git/local_auth_platform_interface-6ba0d621fe1ad0ae312f0e41261872af584ab65f/
-file:///home/sumit/.pub-cache/git/local_auth_platform_interface-6ba0d621fe1ad0ae312f0e41261872af584ab65f/lib/
+3.4
+file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/
+file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/lib/
 pigeon
 3.3
 file:///home/sumit/.pub-cache/git/pigeon-e90c418fb72535135bd810f1c2175357250e5a58/
@@ -279,7 +279,7 @@ yaml
 file:///home/sumit/.pub-cache/hosted/pub.dev/yaml-3.1.2/
 file:///home/sumit/.pub-cache/hosted/pub.dev/yaml-3.1.2/lib/
 local_auth_darwin
-3.3
+3.4
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/lib/
 _macros
