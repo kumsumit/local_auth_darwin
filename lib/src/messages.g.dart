@@ -26,12 +26,25 @@ enum AuthResult {
   /// The user failed to successfully authenticate.
   failure,
 
+<<<<<<< HEAD
+=======
+  /// An authentication was already in progress.
+  errorAlreadyInProgress,
+
+  /// There is no foreground activity.
+  errorNoActivity,
+
+  /// The foreground activity is not a FragmentActivity.
+  errorNotFragmentActivity,
+
+>>>>>>> origin/main
   /// The authentication system was not available.
   errorNotAvailable,
 
   /// No biometrics are enrolled.
   errorNotEnrolled,
 
+<<<<<<< HEAD
   /// No passcode is set.
   errorPasscodeNotSet,
 }
@@ -53,10 +66,42 @@ class AuthStrings {
     this.goToSettingsDescription,
     required this.cancelButton,
     this.localizedFallbackTitle,
+=======
+  /// The user is locked out temporarily due to too many failed attempts.
+  errorLockedOutTemporarily,
+
+  /// The user is locked out until they log in another way due to too many
+  /// failed attempts.
+  errorLockedOutPermanently,
+}
+
+/// Pigeon equivalent of the subset of BiometricType used by Android.
+enum AuthClassification {
+  weak,
+  strong,
+}
+
+/// Pigeon version of AndroidAuthStrings, plus the authorization reason.
+///
+/// See auth_messages_android.dart for details.
+class AuthStrings {
+  AuthStrings({
+    required this.reason,
+    required this.biometricHint,
+    required this.biometricNotRecognized,
+    required this.biometricRequiredTitle,
+    required this.cancelButton,
+    required this.deviceCredentialsRequiredTitle,
+    required this.deviceCredentialsSetupDescription,
+    required this.goToSettingsButton,
+    required this.goToSettingsDescription,
+    required this.signInTitle,
+>>>>>>> origin/main
   });
 
   String reason;
 
+<<<<<<< HEAD
   String lockOut;
 
   String? goToSettingsButton;
@@ -66,15 +111,46 @@ class AuthStrings {
   String cancelButton;
 
   String? localizedFallbackTitle;
+=======
+  String biometricHint;
+
+  String biometricNotRecognized;
+
+  String biometricRequiredTitle;
+
+  String cancelButton;
+
+  String deviceCredentialsRequiredTitle;
+
+  String deviceCredentialsSetupDescription;
+
+  String goToSettingsButton;
+
+  String goToSettingsDescription;
+
+  String signInTitle;
+>>>>>>> origin/main
 
   Object encode() {
     return <Object?>[
       reason,
+<<<<<<< HEAD
       lockOut,
       goToSettingsButton,
       goToSettingsDescription,
       cancelButton,
       localizedFallbackTitle,
+=======
+      biometricHint,
+      biometricNotRecognized,
+      biometricRequiredTitle,
+      cancelButton,
+      deviceCredentialsRequiredTitle,
+      deviceCredentialsSetupDescription,
+      goToSettingsButton,
+      goToSettingsDescription,
+      signInTitle,
+>>>>>>> origin/main
     ];
   }
 
@@ -82,11 +158,23 @@ class AuthStrings {
     result as List<Object?>;
     return AuthStrings(
       reason: result[0]! as String,
+<<<<<<< HEAD
       lockOut: result[1]! as String,
       goToSettingsButton: result[2] as String?,
       goToSettingsDescription: result[3] as String?,
       cancelButton: result[4]! as String,
       localizedFallbackTitle: result[5] as String?,
+=======
+      biometricHint: result[1]! as String,
+      biometricNotRecognized: result[2]! as String,
+      biometricRequiredTitle: result[3]! as String,
+      cancelButton: result[4]! as String,
+      deviceCredentialsRequiredTitle: result[5]! as String,
+      deviceCredentialsSetupDescription: result[6]! as String,
+      goToSettingsButton: result[7]! as String,
+      goToSettingsDescription: result[8]! as String,
+      signInTitle: result[9]! as String,
+>>>>>>> origin/main
     );
   }
 }
@@ -94,21 +182,41 @@ class AuthStrings {
 class AuthOptions {
   AuthOptions({
     required this.biometricOnly,
+<<<<<<< HEAD
     required this.sticky,
     required this.useErrorDialogs,
+=======
+    required this.sensitiveTransaction,
+    required this.sticky,
+    required this.useErrorDialgs,
+>>>>>>> origin/main
   });
 
   bool biometricOnly;
 
+<<<<<<< HEAD
   bool sticky;
 
   bool useErrorDialogs;
+=======
+  bool sensitiveTransaction;
+
+  bool sticky;
+
+  bool useErrorDialgs;
+>>>>>>> origin/main
 
   Object encode() {
     return <Object?>[
       biometricOnly,
+<<<<<<< HEAD
       sticky,
       useErrorDialogs,
+=======
+      sensitiveTransaction,
+      sticky,
+      useErrorDialgs,
+>>>>>>> origin/main
     ];
   }
 
@@ -116,6 +224,7 @@ class AuthOptions {
     result as List<Object?>;
     return AuthOptions(
       biometricOnly: result[0]! as bool,
+<<<<<<< HEAD
       sticky: result[1]! as bool,
       useErrorDialogs: result[2]! as bool,
     );
@@ -152,6 +261,11 @@ class AuthResultDetails {
       result: result[0]! as AuthResult,
       errorMessage: result[1] as String?,
       errorDetails: result[2] as String?,
+=======
+      sensitiveTransaction: result[1]! as bool,
+      sticky: result[2]! as bool,
+      useErrorDialgs: result[3]! as bool,
+>>>>>>> origin/main
     );
   }
 }
@@ -166,7 +280,11 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is AuthResult) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
+<<<<<<< HEAD
     } else if (value is AuthBiometric) {
+=======
+    } else if (value is AuthClassification) {
+>>>>>>> origin/main
       buffer.putUint8(130);
       writeValue(buffer, value.index);
     } else if (value is AuthStrings) {
@@ -175,9 +293,12 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is AuthOptions) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
+<<<<<<< HEAD
     } else if (value is AuthResultDetails) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
+=======
+>>>>>>> origin/main
     } else {
       super.writeValue(buffer, value);
     }
@@ -191,13 +312,20 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : AuthResult.values[value];
       case 130:
         final int? value = readValue(buffer) as int?;
+<<<<<<< HEAD
         return value == null ? null : AuthBiometric.values[value];
+=======
+        return value == null ? null : AuthClassification.values[value];
+>>>>>>> origin/main
       case 131:
         return AuthStrings.decode(readValue(buffer)!);
       case 132:
         return AuthOptions.decode(readValue(buffer)!);
+<<<<<<< HEAD
       case 133:
         return AuthResultDetails.decode(readValue(buffer)!);
+=======
+>>>>>>> origin/main
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -222,7 +350,11 @@ class LocalAuthApi {
   /// Returns true if this device supports authentication.
   Future<bool> isDeviceSupported() async {
     final String pigeonVar_channelName =
+<<<<<<< HEAD
         'dev.flutter.pigeon.local_auth_darwin.LocalAuthApi.isDeviceSupported$pigeonVar_messageChannelSuffix';
+=======
+        'dev.flutter.pigeon.local_auth_android.LocalAuthApi.isDeviceSupported$pigeonVar_messageChannelSuffix';
+>>>>>>> origin/main
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -253,7 +385,44 @@ class LocalAuthApi {
   /// any biometrics are enrolled or not.
   Future<bool> deviceCanSupportBiometrics() async {
     final String pigeonVar_channelName =
+<<<<<<< HEAD
         'dev.flutter.pigeon.local_auth_darwin.LocalAuthApi.deviceCanSupportBiometrics$pigeonVar_messageChannelSuffix';
+=======
+        'dev.flutter.pigeon.local_auth_android.LocalAuthApi.deviceCanSupportBiometrics$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_channel.send(null) as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else if (pigeonVar_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (pigeonVar_replyList[0] as bool?)!;
+    }
+  }
+
+  /// Cancels any in-progress authentication.
+  ///
+  /// Returns true only if authentication was in progress, and was successfully
+  /// cancelled.
+  Future<bool> stopAuthentication() async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.local_auth_android.LocalAuthApi.stopAuthentication$pigeonVar_messageChannelSuffix';
+>>>>>>> origin/main
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -282,9 +451,15 @@ class LocalAuthApi {
 
   /// Returns the biometric types that are enrolled, and can thus be used
   /// without additional setup.
+<<<<<<< HEAD
   Future<List<AuthBiometric>> getEnrolledBiometrics() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.local_auth_darwin.LocalAuthApi.getEnrolledBiometrics$pigeonVar_messageChannelSuffix';
+=======
+  Future<List<AuthClassification>> getEnrolledBiometrics() async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.local_auth_android.LocalAuthApi.getEnrolledBiometrics$pigeonVar_messageChannelSuffix';
+>>>>>>> origin/main
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -307,16 +482,28 @@ class LocalAuthApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
+<<<<<<< HEAD
       return (pigeonVar_replyList[0] as List<Object?>?)!.cast<AuthBiometric>();
+=======
+      return (pigeonVar_replyList[0] as List<Object?>?)!
+          .cast<AuthClassification>();
+>>>>>>> origin/main
     }
   }
 
   /// Attempts to authenticate the user with the provided [options], and using
   /// [strings] for any UI.
+<<<<<<< HEAD
   Future<AuthResultDetails> authenticate(
       AuthOptions options, AuthStrings strings) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.local_auth_darwin.LocalAuthApi.authenticate$pigeonVar_messageChannelSuffix';
+=======
+  Future<AuthResult> authenticate(
+      AuthOptions options, AuthStrings strings) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.local_auth_android.LocalAuthApi.authenticate$pigeonVar_messageChannelSuffix';
+>>>>>>> origin/main
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
       pigeonVar_channelName,
@@ -339,7 +526,11 @@ class LocalAuthApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
+<<<<<<< HEAD
       return (pigeonVar_replyList[0] as AuthResultDetails?)!;
+=======
+      return (pigeonVar_replyList[0] as AuthResult?)!;
+>>>>>>> origin/main
     }
   }
 }
