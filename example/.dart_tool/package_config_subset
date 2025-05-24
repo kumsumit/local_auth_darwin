@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 flutter_plugin_android_lifecycle
 3.3
 file:///home/sumit/.pub-cache/git/flutter_plugin_android_lifecycle-a683d42201cb5d419c7df0c29c745d2f25efec39/
 file:///home/sumit/.pub-cache/git/flutter_plugin_android_lifecycle-a683d42201cb5d419c7df0c29c745d2f25efec39/lib/
+=======
+>>>>>>> origin/main
 local_auth_platform_interface
 3.4
 file:///home/sumit/.pub-cache/git/local_auth_platform_interface-13607da3bb93e0f58e82287c4c088a5af7d310f9/
@@ -39,9 +42,15 @@ file
 file:///home/sumit/.pub-cache/hosted/pub.dev/file-7.0.1/
 file:///home/sumit/.pub-cache/hosted/pub.dev/file-7.0.1/lib/
 intl
+<<<<<<< HEAD
 3.3
 file:///home/sumit/.pub-cache/hosted/pub.dev/intl-0.20.2/
 file:///home/sumit/.pub-cache/hosted/pub.dev/intl-0.20.2/lib/
+=======
+3.0
+file:///home/sumit/.pub-cache/hosted/pub.dev/intl-0.19.0/
+file:///home/sumit/.pub-cache/hosted/pub.dev/intl-0.19.0/lib/
+>>>>>>> origin/main
 leak_tracker
 3.2
 file:///home/sumit/.pub-cache/hosted/pub.dev/leak_tracker-10.0.8/
@@ -118,6 +127,7 @@ webdriver
 3.1
 file:///home/sumit/.pub-cache/hosted/pub.dev/webdriver-3.0.4/
 file:///home/sumit/.pub-cache/hosted/pub.dev/webdriver-3.0.4/lib/
+<<<<<<< HEAD
 local_auth_android
 3.7
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_android/
@@ -126,6 +136,16 @@ local_auth_android_example
 3.5
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_android/example/
 file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_android/example/lib/
+=======
+local_auth_darwin
+3.7
+file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/
+file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/lib/
+local_auth_darwin_example
+3.4
+file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/example/
+file:///home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/example/lib/
+>>>>>>> origin/main
 sky_engine
 3.7
 file:///home/sumit/softwares/flutter/bin/cache/pkg/sky_engine/
