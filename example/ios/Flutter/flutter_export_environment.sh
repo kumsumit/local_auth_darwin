@@ -1,7 +1,8 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/sumit/softwares/flutter"
-export "FLUTTER_APPLICATION_PATH=/home/sumit/StudioProjects/packages/packages/local_auth/local_auth_darwin/example"
+export "FLUTTER_ROOT=/Users/amitsharan/development/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/amitsharan/StudioProjects/packages/packages/local_auth/local_auth_darwin/example"
+export "FLUTTER_FRAMEWORK_SWIFT_PACKAGE_PATH=/Users/amitsharan/StudioProjects/packages/packages/local_auth/local_auth_darwin/example/ios/Flutter/ephemeral/Packages/.packages/FlutterFramework"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

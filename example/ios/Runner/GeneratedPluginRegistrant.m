@@ -12,8 +12,8 @@
 @import integration_test;
 #endif
 
-#if __has_include(<local_auth_darwin/FLALocalAuthPlugin.h>)
-#import <local_auth_darwin/FLALocalAuthPlugin.h>
+#if __has_include(<local_auth_darwin/LocalAuthPlugin.h>)
+#import <local_auth_darwin/LocalAuthPlugin.h>
 #else
 @import local_auth_darwin;
 #endif
@@ -22,7 +22,7 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [IntegrationTestPlugin registerWithRegistrar:[registry registrarForPlugin:@"IntegrationTestPlugin"]];
-  [FLALocalAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLALocalAuthPlugin"]];
+  [LocalAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocalAuthPlugin"]];
 }
 
 @end

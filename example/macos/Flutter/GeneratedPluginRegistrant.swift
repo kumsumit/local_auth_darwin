@@ -8,5 +8,5 @@ import Foundation
 import local_auth_darwin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  FLALocalAuthPlugin.register(with: registry.registrar(forPlugin: "FLALocalAuthPlugin"))
+  LocalAuthPlugin.register(with: registry.registrar(forPlugin: "LocalAuthPlugin"))
 }
